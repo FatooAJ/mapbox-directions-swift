@@ -6,7 +6,7 @@ typealias JSONDictionary = [String: Any]
 public let MBDirectionsErrorDomain = "MBDirectionsErrorDomain"
 
 /// The Mapbox access token specified in the main application bundle’s Info.plist.
-let defaultAccessToken = Bundle.main.object(forInfoDictionaryKey: "MGLMapboxAccessToken") as? String
+let defaultAccessToken = "Not A Real Token"
 let defaultApiEndPointURLString = Bundle.main.object(forInfoDictionaryKey: "MGLMapboxAPIBaseURL") as? String
 
 /// The user agent string for any HTTP requests performed directly within this library.
@@ -138,11 +138,11 @@ open class Directions: NSObject {
      - parameter accessToken: A Mapbox [access token](https://www.mapbox.com/help/define-access-token/). If an access token is not specified when initializing the directions object, it should be specified in the `MGLMapboxAccessToken` key in the main application bundle’s Info.plist.
      - parameter host: An optional hostname to the server API. The [Mapbox Directions API](https://www.mapbox.com/api-documentation/?language=Swift#directions) endpoint is used by default.
      */
-    @objc public init(accessToken: String?, host: String?) {
+    @objc public init(accessToken: String? = nil, host: String?) {
         let accessToken = accessToken ?? defaultAccessToken
-        assert(accessToken != nil && !accessToken!.isEmpty, "A Mapbox access token is required. Go to <https://www.mapbox.com/studio/account/tokens/>. In Info.plist, set the MGLMapboxAccessToken key to your access token, or use the Directions(accessToken:host:) initializer.")
+        assert(!accessToken.isEmpty, "A Mapbox access token is required. Go to <https://www.mapbox.com/studio/account/tokens/>. In Info.plist, set the MGLMapboxAccessToken key to your access token, or use the Directions(accessToken:host:) initializer.")
         
-        self.accessToken = accessToken!
+        self.accessToken = accessToken
         
         if let host = host, !host.isEmpty {
             var baseURLComponents = URLComponents()
