@@ -1034,9 +1034,6 @@ internal class RouteStepV4: RouteStep {
 }
 
 func debugQuickLookURL(illustrating coordinates: [CLLocationCoordinate2D], profileIdentifier: MBDirectionsProfileIdentifier = .automobile) -> URL? {
-    guard let accessToken = defaultAccessToken else {
-        return nil
-    }
     
     let styleIdentifier: String
     let identifierOfLayerAboveOverlays: String
@@ -1063,7 +1060,7 @@ func debugQuickLookURL(illustrating coordinates: [CLLocationCoordinate2D], profi
     var components = URLComponents()
     components.queryItems = [
         URLQueryItem(name: "before_layer", value: identifierOfLayerAboveOverlays),
-        URLQueryItem(name: "access_token", value: accessToken),
+        URLQueryItem(name: "access_token", value: defaultAccessToken),
     ]
     
     return URL(string: "https://api.mapbox.com\(path)?\(components.percentEncodedQuery!)")
